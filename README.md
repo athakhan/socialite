@@ -4,8 +4,8 @@ Socialite - Social Networking for PHP 5.3+
 Usage
 -----
 
-    use Socialite\Twitter\Api\RestClient;
-    use Socialite\Twitter\Api\StreamClient;
+    use Socialite\Bridge\Twitter\Api\RestClient;
+    use Socialite\Bridge\Twitter\Api\StreamClient;
 
     // create a Twitter REST API client
     $rest = new RestClient();
@@ -45,4 +45,4 @@ Socialite is licensed under the MIT License - see the LICENSE file for details
 Acknowledgements
 ----------------
 
-This library is heavily inspired by the [Phirehose](https://github.com/fennb/phirehose) and [twitteroauth](https://github.com/abraham/twitteroauth) libraries, although most concepts have been adjusted to fit to the PHP 5.3+ namespace paradigm.
+This library is heavily inspired by the [Phirehose](https://github.com/fennb/phirehose), [twitteroauth](https://github.com/abraham/twitteroauth) and [oauth-php](http://code.google.com/p/oauth-php) libraries, although most concepts have been adjusted to fit to the PHP 5.3+ namespace paradigm.
