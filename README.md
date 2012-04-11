@@ -1,4 +1,4 @@
-Socialite - Social interation for PHP 5.3+
+Socialite - Social Networking for PHP 5.3+
 ==========================================
 
 Usage
