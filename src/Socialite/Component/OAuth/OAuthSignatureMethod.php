@@ -25,44 +25,39 @@
 namespace Socialite\Component\OAuth;
 
 /**
- * Utility class used by the OAuth components
+ * Abstract class for implementing a Signature Method.
+ *
+ * @link http://oauth.net/core/1.0/#signing_process
  */
-class OAuthUtil {
+abstract class OAuthSignatureMethod {
     /**
-     * Encode the input as specified by RFC 3986.
+     * Return the name of this signature.
      *
-     * Input can be a scalar or array value. When passing an array, the
-     * values will be encoded recursively and the array will be returned.
-     *
-     * @param  array|string $input
-     * @return array|string
+     * @return string
      */
-    static public function urlencode($input) {
-        if (is_array($input)) {
-            return array_map(array('OAuthUtil', 'urlencode'), $input);
-        } else if (is_scalar($input)) {
-            return rawurlencode($input);
-        } else {
-            return '';
-        }
-    }
+    abstract public function name();
 
     /**
-     * Decode the input as specified by RFC 3986.
+     * Return the signature for the given request.
      *
-     * Input can be a scalar or array value. When passing an array, the
-     * values will be encoded recursively and the array will be returned.
+     * Note: The output of this function MUST NOT be urlencoded. The encoding is handled in
+     * OAuthRequest when the final request is serialized.
      *
-     * @param  array|string $input
-     * @return array|string
+     * @param  OAuthRequest  $request
+     * @param  OAuthConsumer $consumer
+     * @param  OAuthToken    $token
+     * @return string
      */
-    static public function urldecode($input) {
-        if (is_array($input)) {
-            return array_map(array('OAuthUtil', 'urldecode'), $input);
-        } else if (is_scalar($input)) {
-            return rawurldecode($input);
-        } else {
-            return '';
-        }
-    }
+    abstract public function build(OAuthRequest $request, OAuthConsumer $consumer, OAuthToken $token);
+
+    /**
+     * Check if the request signature corresponds to the one calculated for the request.
+     *
+     * @param  OAuthRequest  $request
+     * @param  OAuthConsumer $consumer
+     * @param  OAuthToken    $token
+     * @param  string        $signature
+     * @return bool
+     */
+    abstract function verify(OAuthRequest $request, OAuthConsumer $consumer, OAuthToken $token, $signature);
 }
