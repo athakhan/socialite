@@ -35,7 +35,6 @@ Author
 ------
 
 Rodolfo Puig - <rodolfo.puig@nbcuni.com> - <https://twitter.com/rpuig_nbcuni><br />
-See also the list of [contributors](https://github.com/telemundo/socialite/contributors) which participated in this project.
 
 License
 -------
