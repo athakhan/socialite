@@ -59,5 +59,5 @@ abstract class OAuthSignatureMethod {
      * @param  string        $signature
      * @return bool
      */
-    abstract function verify(OAuthRequest $request, OAuthConsumer $consumer, OAuthToken $token, $signature);
+    abstract public function verify(OAuthRequest $request, OAuthConsumer $consumer, OAuthToken $token, $signature);
 }

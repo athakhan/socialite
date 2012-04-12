@@ -34,14 +34,14 @@ class OAuthUtil {
      * Input can be a scalar or array value. When passing an array, the
      * values will be encoded recursively and the array will be returned.
      *
-     * @param  array|string $input
-     * @return array|string
+     * @param  mixed $value
+     * @return mixed
      */
-    static public function urlencode($input) {
-        if (is_array($input)) {
-            return array_map(array('OAuthUtil', 'urlencode'), $input);
-        } else if (is_scalar($input)) {
-            return rawurlencode($input);
+    static public function urlencode($value) {
+        if (is_array($value)) {
+            return array_map(array('OAuthUtil', 'urlencode'), $value);
+        } else if (is_scalar($value)) {
+            return rawurlencode($value);
         } else {
             return '';
         }
@@ -53,14 +53,14 @@ class OAuthUtil {
      * Input can be a scalar or array value. When passing an array, the
      * values will be encoded recursively and the array will be returned.
      *
-     * @param  array|string $input
-     * @return array|string
+     * @param  mixed $value
+     * @return mixed
      */
-    static public function urldecode($input) {
-        if (is_array($input)) {
-            return array_map(array('OAuthUtil', 'urldecode'), $input);
-        } else if (is_scalar($input)) {
-            return rawurldecode($input);
+    static public function urldecode($value) {
+        if (is_array($value)) {
+            return array_map(array('OAuthUtil', 'urldecode'), $value);
+        } else if (is_scalar($value)) {
+            return rawurldecode($value);
         } else {
             return '';
         }
