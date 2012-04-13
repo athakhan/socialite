@@ -22,7 +22,7 @@
  * THE SOFTWARE.
  */
 
-namespace Socialite\Component\OAuth;
+namespace Socialite\Component\OAuth\SignatureMethod;
 
 /**
  * Abstract class for implementing a Signature Method.

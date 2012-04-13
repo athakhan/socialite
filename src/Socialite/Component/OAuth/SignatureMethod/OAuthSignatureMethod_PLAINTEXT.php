@@ -22,7 +22,7 @@
  * THE SOFTWARE.
  */
 
-namespace Socialite\Component\OAuth;
+namespace Socialite\Component\OAuth\SignatureMethod;
 
 /**
  * The PLAINTEXT method does not provide any security protection and SHOULD only be used

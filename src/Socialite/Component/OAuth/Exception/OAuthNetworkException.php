@@ -22,13 +22,9 @@
  * THE SOFTWARE.
  */
 
-namespace Socialite\Component\OAuth;
+namespace Socialite\Component\OAuth\Exception;
 
 /**
- * Simple exception wrapper for OAuth
+ * Network exception wrapper for OAuth
  */
-class OAuthException extends \Exception {
-    function __construct($message) {
-        Exception::__construct($message);
-    }
-}
+class OAuthNetworkException extends \Exception {}

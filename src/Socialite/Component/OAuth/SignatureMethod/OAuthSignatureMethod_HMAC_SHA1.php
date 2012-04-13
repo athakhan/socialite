@@ -22,7 +22,7 @@
  * THE SOFTWARE.
  */
 
-namespace Socialite\Component\OAuth;
+namespace Socialite\Component\OAuth\SignatureMethod;
 
 /**
  * The HMAC-SHA1 signature method uses the HMAC-SHA1 signature algorithm as defined in [RFC2104]
