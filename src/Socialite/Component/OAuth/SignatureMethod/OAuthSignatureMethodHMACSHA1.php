@@ -24,6 +24,11 @@
 
 namespace Socialite\Component\OAuth\SignatureMethod;
 
+use Socialite\Component\OAuth\OAuthRequest;
+use Socialite\Component\OAuth\OAuthConsumer;
+use Socialite\Component\OAuth\OAuthToken;
+use Socialite\Component\OAuth\OAuthUtil;
+
 /**
  * The HMAC-SHA1 signature method uses the HMAC-SHA1 signature algorithm as defined in [RFC2104]
  * where the Signature Base String is the text and the key is the concatenated values (each first
@@ -32,7 +37,7 @@ namespace Socialite\Component\OAuth\SignatureMethod;
  *
  * @link http://oauth.net/core/1.0/#anchor16
  */
-class OAuthSignatureMethod_HMAC_SHA1 extends OAuthSignatureMethod {
+class OAuthSignatureMethodHMACSHA1 extends OAuthSignatureMethod {
     /**
      * (non-PHPdoc)
      * @see Socialite\Component\OAuth.OAuthSignatureMethod::name()
@@ -46,7 +51,7 @@ class OAuthSignatureMethod_HMAC_SHA1 extends OAuthSignatureMethod {
      * @see Socialite\Component\OAuth.OAuthSignatureMethod::build()
      */
     public function build(OAuthRequest $request, OAuthConsumer $consumer, OAuthToken $token) {
-        $base = $request->getBase();
+        $base = $request->getBaseSignature();
         $key = OAuthUtil::urlencode($consumer->key) . '&' . OAuthUtil::urlencode($consumer->secret);
         if (function_exists('hash_hmac')) {
             $signature = base64_encode(hash_hmac('sha1', $base, $key, true));

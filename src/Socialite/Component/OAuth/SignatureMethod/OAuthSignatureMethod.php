@@ -24,6 +24,11 @@
 
 namespace Socialite\Component\OAuth\SignatureMethod;
 
+use Socialite\Component\OAuth\OAuthRequest;
+use Socialite\Component\OAuth\OAuthConsumer;
+use Socialite\Component\OAuth\OAuthToken;
+use Socialite\Component\OAuth\OAuthUtil;
+
 /**
  * Abstract class for implementing a Signature Method.
  *

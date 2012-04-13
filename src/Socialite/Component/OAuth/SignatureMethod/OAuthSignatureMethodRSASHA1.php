@@ -24,6 +24,11 @@
 
 namespace Socialite\Component\OAuth\SignatureMethod;
 
+use Socialite\Component\OAuth\OAuthRequest;
+use Socialite\Component\OAuth\OAuthConsumer;
+use Socialite\Component\OAuth\OAuthToken;
+use Socialite\Component\OAuth\OAuthUtil;
+
 /**
  * The RSA-SHA1 signature method uses the RSASSA-PKCS1-v1_5 signature algorithm as defined in
  * [RFC3447] section 8.2 (more simply known as PKCS#1), using SHA-1 as the hash function for
@@ -32,7 +37,7 @@ namespace Socialite\Component\OAuth\SignatureMethod;
  *
  * @link http://oauth.net/core/1.0/#anchor19
  */
-class OAuthSignatureMethod_RSA_SHA1 extends OAuthSignatureMethod {
+class OAuthSignatureMethodRSASHA1 extends OAuthSignatureMethod {
     /**
      * Fetch the public certificate key for the signature.
      *

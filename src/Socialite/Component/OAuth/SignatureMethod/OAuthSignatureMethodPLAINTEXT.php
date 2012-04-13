@@ -24,13 +24,18 @@
 
 namespace Socialite\Component\OAuth\SignatureMethod;
 
+use Socialite\Component\OAuth\OAuthRequest;
+use Socialite\Component\OAuth\OAuthConsumer;
+use Socialite\Component\OAuth\OAuthToken;
+use Socialite\Component\OAuth\OAuthUtil;
+
 /**
  * The PLAINTEXT method does not provide any security protection and SHOULD only be used
  * over a secure channel such as HTTPS. It does not use the Signature Base String.
  *
  * @link http://oauth.net/core/1.0/#anchor22
  */
-class OAuthSignatureMethod_PLAINTEXT extends OAuthSignatureMethod {
+class OAuthSignatureMethodPLAINTEXT extends OAuthSignatureMethod {
     /**
      * (non-PHPdoc)
      * @see Socialite\Component\OAuth.OAuthSignatureMethod::name()
