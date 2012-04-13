@@ -39,7 +39,7 @@ class OAuthUtil {
      */
     static public function urlencode($value) {
         if (is_array($value)) {
-            return array_map(array('OAuthUtil', 'urlencode'), $value);
+            return array_map(array('Socialite\Component\OAuth\OAuthUtil', 'urlencode'), $value);
         } else if (is_scalar($value)) {
             return rawurlencode($value);
         } else {
@@ -58,7 +58,7 @@ class OAuthUtil {
      */
     static public function urldecode($value) {
         if (is_array($value)) {
-            return array_map(array('OAuthUtil', 'urldecode'), $value);
+            return array_map(array('Socialite\Component\OAuth\OAuthUtil', 'urldecode'), $value);
         } else if (is_scalar($value)) {
             return rawurldecode($value);
         } else {
