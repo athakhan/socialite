@@ -35,10 +35,10 @@ use Socialite\Component\OAuth\OAuthUtil;
  *
  * @link http://oauth.net/core/1.0/#anchor22
  */
-class OAuthSignatureMethodPLAINTEXT extends OAuthSignatureMethod {
+class OAuthSignatureMethodPLAIN extends OAuthSignatureMethod {
     /**
      * (non-PHPdoc)
-     * @see Socialite\Component\OAuth.OAuthSignatureMethod::name()
+     * @see Socialite\Component\OAuth\SignatureMethod.OAuthSignatureMethod::name()
      */
     public function name() {
         return 'PLAINTEXT';
@@ -46,15 +46,15 @@ class OAuthSignatureMethodPLAINTEXT extends OAuthSignatureMethod {
 
     /**
      * (non-PHPdoc)
-     * @see Socialite\Component\OAuth.OAuthSignatureMethod::build()
+     * @see Socialite\Component\OAuth\SignatureMethod.OAuthSignatureMethod::build()
      */
     public function build(OAuthRequest $request, OAuthConsumer $consumer, OAuthToken $token) {
-        return OAuthUtil::urlencode($consumer->key) . '&' . OAuthUtil::urlencode($consumer->secret);
+        return OAuthUtil::urlencode($consumer->secret) . '&' . OAuthUtil::urlencode($token->secret);
     }
 
     /**
      * (non-PHPdoc)
-     * @see Socialite\Component\OAuth.OAuthSignatureMethod::verify()
+     * @see Socialite\Component\OAuth\SignatureMethod.OAuthSignatureMethod::verify()
      */
     public function verify(OAuthRequest $request, OAuthConsumer $consumer, OAuthToken $token, $signature) {
         $rawa = OAuthUtil::urldecode($signature);
