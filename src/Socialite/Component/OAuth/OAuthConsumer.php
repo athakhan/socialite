@@ -50,6 +50,11 @@ class OAuthConsumer {
         $this->secret = $secret;
     }
 
+    /**
+     * Return the string representation of this object.
+     *
+     * @return string
+     */
     function __toString() {
         return "OAuthConsumer[key=" . $this->key . ",secret=" . $this->secret . "]";
     }

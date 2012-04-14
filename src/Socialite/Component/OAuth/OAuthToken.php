@@ -50,6 +50,11 @@ class OAuthToken {
         $this->secret = $secret;
     }
 
+    /**
+     * Return the string representation of this object.
+     *
+     * @return string
+     */
     function __toString() {
         return "OAuthToken[token=" . $this->token . ",secret=" . $this->secret . "]";
     }
