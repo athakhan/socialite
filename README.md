@@ -5,17 +5,21 @@ Social Networking for PHP 5.3+
 ## Usage ##
 
     use Socialite\Bridge\Twitter\Api\RestClient;
-    use Socialite\Bridge\Twitter\Api\StreamClient;
+    use Socialite\Component\OAuth\Exception\OAuthException;
+    use Socialite\Component\OAuth\Exception\OAuthNetworkException;
+    use Socialite\Component\OAuth\Exception\OAuthConnectionLimitException;
 
     // create a Twitter REST API client
-    $rest = new RestClient();
-
-    // create a Twitter Stream API client
-    $stream = new StreamClient();
+    $rest = new RestClient(CONSUMER_KEY, CONSUMER_SECRET, USER_TOKEN, USER_SECRET);
+    // create a request URL
+    $url = $rest->createUrl(RestClient::GET_USERS_LOOKUP);
+    // execute a GET request
+    $json = $rest->get($url, array('screen_username' => 'rpuig_nbcuni'));
 
 ## Requirements ##
 
 - Any flavor of PHP 5.3 or greater should do
+- A PSR-0 class autoloader ([Symfony ClassLoader](https://github.com/symfony/ClassLoader))
 
 ## Submitting bugs and feature requests ##
 
