@@ -7,14 +7,19 @@ Social Networking for PHP 5.3+
     use Socialite\Bridge\Twitter\Api\RestClient;
     use Socialite\Component\OAuth\Exception\OAuthException;
     use Socialite\Component\OAuth\Exception\OAuthNetworkException;
-    use Socialite\Component\OAuth\Exception\OAuthConnectionLimitException;
 
     // create a Twitter REST API client
     $rest = new RestClient(CONSUMER_KEY, CONSUMER_SECRET, USER_TOKEN, USER_SECRET);
     // create a request URL
     $url = $rest->createUrl(RestClient::GET_USERS_LOOKUP);
     // execute a GET request
-    $json = $rest->get($url, array('screen_username' => 'rpuig_nbcuni'));
+    try {
+        $json = $rest->get($url, array('screen_username' => 'rpuig_nbcuni'));
+    } catch(OAuthException $e) {
+        // general exception
+    } catch(OAuthNetworkException $e) {
+        // network exception
+    }
 
 ## Requirements ##
 
