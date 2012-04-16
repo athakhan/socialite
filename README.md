@@ -7,14 +7,19 @@ Social Networking for PHP 5.3+
 ```php
 use Socialite\Bridge\Twitter\Request;
 use Socialite\Bridge\Twitter\Api\RestClient;
+use Socialite\Component\OAuth\OAuthConsumer;
+use Socialite\Component\OAuth\OAuthToken;
 use Socialite\Component\OAuth\Exception\OAuthException;
 use Socialite\Component\OAuth\Exception\OAuthNetworkException;
 
 try {
     // create the rest client and perform a user lookup request
-    $rc   = new RestClient(CONSUMER_KEY, CONSUMER_SECRET, USER_TOKEN, USER_SECRET);
-    $url  = $rc->createUrl(RestClient::GET_USERS_LOOKUP, Request::TYPE_JSON);
-    $json = $rc->get($url, array('screen_username' => 'rpuig_nbcuni'));
+    $restClient = new RestClient(
+        new OAuthConsumer(CONSUMER_KEY, CONSUMER_SECRET),
+        new OAuthToken(ACCESS_TOKEN, ACCESS_TOKEN_SECRET)
+    );
+    $requestUrl = $restClient->createUrl(RestClient::GET_USERS_LOOKUP, Request::TYPE_JSON);
+    $response   = $restClient->get($requestUrl, array('screen_username' => 'rpuig_nbcuni'));
 } catch(OAuthException $e) {
     // generic exception
 } catch(OAuthNetworkException $e) {

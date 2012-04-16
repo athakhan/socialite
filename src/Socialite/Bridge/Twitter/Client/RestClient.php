@@ -60,15 +60,13 @@ class RestClient {
     /**
      * Constructor
      *
-     * @param string $consumer_key
-     * @param string $consumer_secret
-     * @param string $user_token
-     * @param string $user_secret
-     * @param array  $curl_opts
+     * @param OAuthConsumer $consumer
+     * @param OAuthToken    $token
+     * @param array         $curl_opts
      */
-    public function __construct($consumer_key, $consumer_secret, $user_token = NULL, $user_secret = NULL, array $curl_opts = NULL) {
-        $this->consumer     = new OAuthConsumer($consumer_key, $consumer_secret);
-        $this->token        = new OAuthToken($user_token, $user_secret);
+    public function __construct(OAuthConsumer $consumer, OAuthToken $token, array $curl_opts = NULL) {
+        $this->consumer     = $consumer;
+        $this->token        = $token;
         $this->curl_opts    = $curl_opts;
         $this->content_type = Request::TYPE_JSON;
     }
@@ -96,9 +94,9 @@ class RestClient {
      * @return mixed
      */
     public function get($url, array $parameters = NULL) {
-        $request = new Request($this->consumer, $this->token);
+        $request = new Request($this->consumer, $this->token, $this->curl_opts);
         $request->build($url, Request::HTTP_GET, $parameters);
-        $result = $request->execute(NULL, $this->curl_opts);
+        $result = $request->execute(NULL);
         // parse the content as requested
         switch ($this->content_type) {
             case Request::TYPE_XML:

@@ -25,12 +25,12 @@
 namespace Socialite\Bridge\Twitter;
 
 
-use Socialite\Component\OAuth\Exception\OAuthNetworkException;
-
 use Socialite\Component\OAuth\OAuthRequest;
 use Socialite\Component\OAuth\OAuthConsumer;
 use Socialite\Component\OAuth\OAuthToken;
 use Socialite\Component\OAuth\OAuthUtil;
+use Socialite\Component\OAuth\Exception\OAuthException;
+use Socialite\Component\OAuth\Exception\OAuthNetworkException;
 use Socialite\Component\OAuth\SignatureMethod\OAuthSignatureMethodHMAC;
 
 /**
@@ -41,6 +41,7 @@ class Request {
     protected $consumer;
     protected $token;
     protected $request;
+    protected $curl_opts;
 
     const OAUTH_USERAGENT         = 'Socialite/1.0';
     const OAUTH_ACCESS_TOKEN_URL  = 'https://api.twitter.com/oauth/access_token';
@@ -57,17 +58,31 @@ class Request {
     const HTTP_POST   = 'POST';
     const HTTP_PUT    = 'PUT';
 
+    public function getEncoder() { return $this->encoder; }
+    public function getConsumer() { return $this->consumer; }
+    public function getToken() { return $this->token; }
+    public function getRequest() { return $this->request; }
+    public function getCurlOpts() { return $this->curl_opts; }
+
     /**
      * Constructor
      *
      * @param OAuthConsumer $consumer
      * @param OAuthToken    $token
+     * @param array         $curl_opts
      */
-    public function __construct(OAuthConsumer $consumer, OAuthToken $token = NULL) {
-        $this->encoder = new OAuthSignatureMethodHMAC();
-        $this->consumer = $consumer;
+    public function __construct(OAuthConsumer $consumer, OAuthToken $token, array $curl_opts = NULL) {
+        $this->curl_opts = $curl_opts;
+        $this->encoder   = new OAuthSignatureMethodHMAC();
+        $this->consumer  = $consumer;
         if ($token instanceof OAuthToken) {
             $this->token = $token;
+        /*
+        } else if ($auth instanceof OAuthUser) {
+            $this->requestToken($auth);
+        */
+        } else {
+            throw new OAuthException('Invalid OAuth token type: ' . get_class($token));
         }
     }
 
@@ -88,10 +103,11 @@ class Request {
     /**
      * Execute the HTTP request.
      *
-     * @param  array $curlOpts
+     * @param  string $data
+     * @param  array  $curlOpts
      * @return string
      */
-    public function execute($data = NULL, array $curlOpts = NULL) {
+    public function execute($data = NULL) {
         $curl = curl_init();
         curl_setopt($curl, CURLOPT_USERAGENT, self::OAUTH_USERAGENT);
         curl_setopt($curl, CURLOPT_CONNECTTIMEOUT, 15);
@@ -109,8 +125,8 @@ class Request {
                 break;
         }
         // apply the cURL configuration overrides
-        if (is_array($curlOpts)) {
-            curl_setopt_array($curl, $curlOpts);
+        if (is_array($this->curl_opts)) {
+            curl_setopt_array($curl, $this->curl_opts);
         }
         // execute the cURL connection
         curl_setopt($curl, CURLOPT_URL, $this->request->getRequestUrl());
@@ -121,5 +137,9 @@ class Request {
         curl_close ($curl);
 
         return $response;
+    }
+
+    protected function requestToken() {
+        // @todo: create logic to request a new token
     }
 }
