@@ -38,7 +38,7 @@ class RestClient {
     protected $curl_opts;
     protected $content_type;
 
-    const RESTAPI_ENDPOINT = 'https://api.twitter.com/1/s';
+    const RESTAPI_ENDPOINT = 'https://api.twitter.com/1/';
 
     const GET_FAVORITES                = 'favorites';
     const GET_SEARCH                   = 'search';
