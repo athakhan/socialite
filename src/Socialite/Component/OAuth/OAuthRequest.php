@@ -44,8 +44,6 @@ class OAuthRequest {
     const IS_BUILT  = 1;
     const IS_SIGNED = 2;
 
-    const CLIENT_UA = 'Socialite/1.0';
-
     public function getRealm() { return $this->realm; }
     public function getUrl() { return $this->url; }
     public function getMethod() { return $this->method; }

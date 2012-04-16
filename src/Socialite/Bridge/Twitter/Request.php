@@ -42,19 +42,20 @@ class Request {
     protected $token;
     protected $request;
 
+    const OAUTH_USERAGENT         = 'Socialite/1.0';
     const OAUTH_ACCESS_TOKEN_URL  = 'https://api.twitter.com/oauth/access_token';
     const OAUTH_AUTHENTICATE_URL  = 'https://api.twitter.com/oauth/authenticate';
     const OAUTH_AUTHORIZE_URL     = 'https://api.twitter.com/oauth/authorize';
     const OAUTH_REQUEST_TOKEN_URL = 'https://api.twitter.com/oauth/request_token';
 
+    const TYPE_JSON   = 'json';
+    const TYPE_XML    = 'xml';
+    const TYPE_RAW    = 'raw';
+
     const HTTP_DELETE = 'DELETE';
     const HTTP_GET    = 'GET';
     const HTTP_POST   = 'POST';
     const HTTP_PUT    = 'PUT';
-
-    const TYPE_JSON = 'json';
-    const TYPE_XML  = 'xml';
-    const TYPE_RAW  = 'raw';
 
     /**
      * Constructor
@@ -92,7 +93,7 @@ class Request {
      */
     public function execute($data = NULL, array $curlOpts = NULL) {
         $curl = curl_init();
-        curl_setopt($curl, CURLOPT_USERAGENT, OAuthRequest::CLIENT_UA);
+        curl_setopt($curl, CURLOPT_USERAGENT, self::OAUTH_USERAGENT);
         curl_setopt($curl, CURLOPT_CONNECTTIMEOUT, 15);
         curl_setopt($curl, CURLOPT_TIMEOUT, 30);
         curl_setopt($curl, CURLOPT_RETURNTRANSFER, TRUE);
