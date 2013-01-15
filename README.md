@@ -1,10 +1,18 @@
-# Socialite #
+Socialite - Social networking for PHP 5.3+
+==========================================
 
-Social Networking for PHP 5.3+
+Socialite is written with speed and flexibility in mind. It allows developers to build
+better and easy to maintain OAuth requests with PHP.
 
-## Usage ##
+This library implements the [PSR-0](https://github.com/php-fig/fig-standards/blob/master/accepted/PSR-0.md)
+interface that describes the mandatory requirements that must be adhered to for autoloader
+interoperability.
+
+Usage
+-----
 
 ```php
+<?php
 use Socialite\Bridge\Twitter\Request;
 use Socialite\Bridge\Twitter\Api\RestClient;
 use Socialite\Component\OAuth\OAuthConsumer;
@@ -27,23 +35,30 @@ try {
 }
 ```
 
-## Requirements ##
+Requirements
+------------
 
-- Any flavor of PHP 5.3 or greater should do
-- A PSR-0 class autoloader ([Symfony ClassLoader](https://github.com/symfony/ClassLoader))
+- Any flavor of PHP 5.3 or above should do
 
-## Submitting bugs and feature requests ##
+Submitting bugs and feature requests
+------------------------------------
 
 Bugs and feature request are tracked on [GitHub](https://github.com/telemundo/socialite/issues)
 
-## Author ##
+Author
+------
 
-Rodolfo Puig - <rodolfo.puig@nbcuni.com> - <https://twitter.com/rpuig_nbcuni><br />
+Rodolfo Puig - [@rpuig_nbcuni](https://twitter.com/rpuig_nbcuni)  
 
-## License ##
+License
+-------
 
-Socialite is licensed under the MIT License - see the LICENSE file for details
+This package is licensed under the MIT License - see the LICENSE file for details.
 
-## Acknowledgements ##
+Acknowledgements
+----------------
 
-This library is heavily inspired by the [Phirehose](https://github.com/fennb/phirehose), [twitteroauth](https://github.com/abraham/twitteroauth) and [oauth-php](http://code.google.com/p/oauth-php) libraries, although most concepts have been adjusted to fit to the PHP 5.3+ namespace paradigm.
+This library is heavily inspired by the [Phirehose](https://github.com/fennb/phirehose),
+[twitteroauth](https://github.com/abraham/twitteroauth) and [oauth-php](http://code.google.com/p/oauth-php)
+libraries, although most concepts have been adjusted to fit to the PHP 5.3+ namespace
+paradigm.

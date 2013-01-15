@@ -1,0 +1,20 @@
+{
+    "name": "telemundo/socialite",
+    "description": "Makes it easy for you to connect to many different social APIs",
+    "keywords": ["oauth", "social", "psr-0"],
+    "homepage": "http://github.com/telemundo/socialite",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Rodolfo Puig",
+            "email": "rodolfo.puig@nbcuni.com"
+        }
+    ],
+    "require": {
+        "php": ">=5.3.3"
+    },
+    "autoload": {
+        "psr-0": { "Socialite": "src/" }
+    }
+}
