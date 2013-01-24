@@ -1,6 +1,6 @@
 {
     "name": "telemundo/socialite",
-    "description": "Makes it easy for you to connect to many different social APIs",
+    "description": "OAuth library for PHP 5.3+",
     "keywords": ["oauth", "social", "psr-0"],
     "homepage": "http://github.com/telemundo/socialite",
     "type": "library",
@@ -16,5 +16,6 @@
     },
     "autoload": {
         "psr-0": { "Socialite": "src/" }
-    }
+    },
+    "minimum-stability": "dev"
 }
