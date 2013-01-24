@@ -1,33 +1,20 @@
 <?php
 
 /**
- * Copyright (c) Telemundo Digital Media
+ * This file is part of the Socialite package.
  *
- * Permission is hereby granted, free of charge, to any person obtaining a copy
- * of this software and associated documentation files (the "Software"), to deal
- * in the Software without restriction, including without limitation the rights
- * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
- * copies of the Software, and to permit persons to whom the Software is furnished
- * to do so, subject to the following conditions:
+ * (c) Telemundo Digital Media
  *
- * The above copyright notice and this permission notice shall be included in all
- * copies or substantial portions of the Software.
- *
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
- * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
- * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
- * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
- * THE SOFTWARE.
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
  */
 
 namespace Socialite\Component\OAuth\SignatureMethod;
 
-use Socialite\Component\OAuth\OAuthRequest;
+use Socialite\Component\OAuth\OAuth;
 use Socialite\Component\OAuth\OAuthConsumer;
+use Socialite\Component\OAuth\OAuthRequest;
 use Socialite\Component\OAuth\OAuthToken;
-use Socialite\Component\OAuth\OAuthUtil;
 
 /**
  * The PLAINTEXT method does not provide any security protection and SHOULD only be used
@@ -38,7 +25,7 @@ use Socialite\Component\OAuth\OAuthUtil;
 class OAuthSignatureMethodPLAIN extends OAuthSignatureMethod {
     /**
      * (non-PHPdoc)
-     * @see Socialite\Component\OAuth\SignatureMethod.OAuthSignatureMethod::name()
+     * @see \Socialite\Component\OAuth\SignatureMethod\OAuthSignatureMethod::name()
      */
     public function name() {
         return 'PLAINTEXT';
@@ -46,19 +33,22 @@ class OAuthSignatureMethodPLAIN extends OAuthSignatureMethod {
 
     /**
      * (non-PHPdoc)
-     * @see Socialite\Component\OAuth\SignatureMethod.OAuthSignatureMethod::build()
+     * @see \Socialite\Component\OAuth\SignatureMethod\OAuthSignatureMethod::build()
      */
-    public function build(OAuthRequest $request, OAuthConsumer $consumer, OAuthToken $token) {
-        return OAuthUtil::urlencode($consumer->secret) . '&' . OAuthUtil::urlencode($token->secret);
+    public function build(OAuthRequest $request, OAuthConsumer $consumer, OAuthToken $token = NULL) {
+        $parts   = array(OAuth::urlencode($consumer->getSecret()));
+        $parts[] = ($token instanceof OAuthToken) ? OAuth::urlencode($token->getSecret()) : '';
+
+        return join('&', $parts);
     }
 
     /**
      * (non-PHPdoc)
-     * @see Socialite\Component\OAuth\SignatureMethod.OAuthSignatureMethod::verify()
+     * @see \Socialite\Component\OAuth\SignatureMethod\OAuthSignatureMethod::verify()
      */
-    public function verify(OAuthRequest $request, OAuthConsumer $consumer, OAuthToken $token, $signature) {
-        $rawa = OAuthUtil::urldecode($signature);
-        $rawb = OAuthUtil::urldecode($this->build($request, $consumer, $token));
+    public function verify(OAuthRequest $request, OAuthConsumer $consumer, OAuthToken $token = NULL, $signature) {
+        $rawa = OAuth::urldecode($signature);
+        $rawb = OAuth::urldecode($this->build($request, $consumer, $token));
 
         return rawurlencode($rawa) == rawurlencode($rawb);
     }

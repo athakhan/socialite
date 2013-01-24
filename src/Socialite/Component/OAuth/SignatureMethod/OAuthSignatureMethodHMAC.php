@@ -1,33 +1,20 @@
 <?php
 
 /**
- * Copyright (c) Telemundo Digital Media
+ * This file is part of the Socialite package.
  *
- * Permission is hereby granted, free of charge, to any person obtaining a copy
- * of this software and associated documentation files (the "Software"), to deal
- * in the Software without restriction, including without limitation the rights
- * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
- * copies of the Software, and to permit persons to whom the Software is furnished
- * to do so, subject to the following conditions:
+ * (c) Telemundo Digital Media
  *
- * The above copyright notice and this permission notice shall be included in all
- * copies or substantial portions of the Software.
- *
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
- * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
- * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
- * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
- * THE SOFTWARE.
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
  */
 
 namespace Socialite\Component\OAuth\SignatureMethod;
 
-use Socialite\Component\OAuth\OAuthRequest;
+use Socialite\Component\OAuth\OAuth;
 use Socialite\Component\OAuth\OAuthConsumer;
+use Socialite\Component\OAuth\OAuthRequest;
 use Socialite\Component\OAuth\OAuthToken;
-use Socialite\Component\OAuth\OAuthUtil;
 
 /**
  * The HMAC-SHA1 signature method uses the HMAC-SHA1 signature algorithm as defined in [RFC2104]
@@ -36,11 +23,13 @@ use Socialite\Component\OAuth\OAuthUtil;
  * character (ASCII code 38) even if empty.
  *
  * @link http://oauth.net/core/1.0/#anchor16
+ *
+ * @author Rodolfo Puig <rpuig@7gstudios.com>
  */
 class OAuthSignatureMethodHMAC extends OAuthSignatureMethod {
     /**
      * (non-PHPdoc)
-     * @see Socialite\Component\OAuth\SignatureMethod.OAuthSignatureMethod::name()
+     * @see \Socialite\Component\OAuth\SignatureMethod\OAuthSignatureMethod::name()
      */
     public function name() {
         return "HMAC-SHA1";
@@ -48,11 +37,14 @@ class OAuthSignatureMethodHMAC extends OAuthSignatureMethod {
 
     /**
      * (non-PHPdoc)
-     * @see Socialite\Component\OAuth\SignatureMethod.OAuthSignatureMethod::build()
+     * @see \Socialite\Component\OAuth\SignatureMethod\OAuthSignatureMethod::build()
      */
-    public function build(OAuthRequest $request, OAuthConsumer $consumer, OAuthToken $token) {
-        $base = $request->getBaseSignature();
-        $key = OAuthUtil::urlencode($consumer->secret) . '&' . OAuthUtil::urlencode($token->secret);
+    public function build(OAuthRequest $request, OAuthConsumer $consumer, OAuthToken $token = NULL) {
+        $parts   = array(OAuth::urlencode($consumer->getSecret()));
+        $parts[] = ($token instanceof OAuthToken) ? OAuth::urlencode($token->getSecret()) : '';
+        $base    = $request->getBaseSignature();
+        $key     = join('&', $parts);
+
         if (function_exists('hash_hmac')) {
             $hmac = hash_hmac('sha1', $base, $key, true);
         } else {
@@ -75,16 +67,16 @@ class OAuthSignatureMethodHMAC extends OAuthSignatureMethod {
             );
         }
 
-        return  base64_encode($hmac);;
+        return base64_encode($hmac);;
     }
 
     /**
      * (non-PHPdoc)
-     * @see Socialite\Component\OAuth\SignatureMethod.OAuthSignatureMethod::verify()
+     * @see \Socialite\Component\OAuth\SignatureMethod\OAuthSignatureMethod::verify()
      */
-    public function verify(OAuthRequest $request, OAuthConsumer $consumer, OAuthToken $token, $signature) {
-        $rawa = OAuthUtil::urldecode($signature);
-        $rawb = OAuthUtil::urldecode($this->build($request, $consumer, $token));
+    public function verify(OAuthRequest $request, OAuthConsumer $consumer, OAuthToken $token = NULL, $signature) {
+        $rawa = OAuth::urldecode($signature);
+        $rawb = OAuth::urldecode($this->build($request, $consumer, $token));
 
         // base64 decode the values
         $decodeda = base64_decode($rawa);
