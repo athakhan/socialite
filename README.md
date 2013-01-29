@@ -7,7 +7,7 @@ better and easy to maintain OAuth applications with PHP.
 Usage
 -----
 
-**login.php**
+**connect.php**
 ```php
 <?php
 
@@ -18,10 +18,9 @@ use Socialite\Component\OAuth\Exception\OAuthNetworkException;
 
 try {
     // create a provider instance
+    $callback = 'http://my.app.com/callback.php';
     $consumer = new OAuthConsumer('client_id', 'client_secret');
-    $provider = new FacebookProvider($consumer);
-    // set the oauth_callback value
-    $provider->setCallback('http://my.app.com/callback');
+    $provider = new FacebookProvider($consumer, NULL, $callback);
     // define the scope of the request
     $provider->setScope(array('email'));
     // redirect the user to the dialog URL
@@ -44,16 +43,14 @@ use Socialite\Component\OAuth\Exception\OAuthNetworkException;
 
 try {
     // create a provider instance
+    $callback = 'http://my.app.com/callback.php';
     $consumer = new OAuthConsumer('client_id', 'client_secret');
     $token    = new OAuthToken($_REQUEST['oauth_token']);
-    $provider = new FacebookProvider($consumer);
-    // set the oauth_callback value
-    $provider->setCallback('http://my.app.com/callback');
+    $provider = new FacebookProvider($consumer, $token, $callback);
     // request an access token
-    $provider->getAccessToken(array('code' => $_REQUEST['code'], 'redirect_uri' => $callback_url, 'grant_type' => 'authorization_code'));
-    // get the response data
-    $response $provider->getResponse();
-    // the rest is up to you...
+    $provider->getAccessToken(array('code' => $_REQUEST['code'], 'redirect_uri' => $callback, 'grant_type' => 'authorization_code'));
+    // get the response data; the rest is up to you...
+    $response = $provider->getResponse();
 } catch(OAuthException $e) {
     // generic exception
 } catch(OAuthNetworkException $e) {
@@ -64,7 +61,7 @@ try {
 Requirements
 ------------
 
-- Any flavor of PHP 5.3 and above should do
+Any flavor of PHP 5.3 and above should do.
 
 Submitting bugs and feature requests
 ------------------------------------
