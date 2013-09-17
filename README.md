@@ -1,87 +1,103 @@
-Socialite - OAuth library for PHP 5.3+
-======================================
+Socialite
+=========
 
 Socialite is written with speed and flexibility in mind. It allows developers to build
 better and easy to maintain OAuth applications with PHP.
 
+
+Installation
+------------
+
+Since Socialite uses [Composer][1] to manage its dependencies, the recommended way
+to install the libray is by following the steps below. Please note that the installation of
+[Composer][1] is beyond the scope of this manual.
+
+Begin by adding the following entry to your `composer.json` file:
+
+    "require": {
+        "telemundo/socialite": "dev-master"
+    }
+
+Run `php composer.phar update` to install the necessary dependencies.
+
+
 Usage
 -----
 
-**connect.php**
-```php
-<?php
+Use the following example to help you learn how to use the library.
 
-use Socialite\Bridge\Provider\FacebookProvider;
-use Socialite\Component\OAuth\OAuthConsumer;
-use Socialite\Component\OAuth\Exception\OAuthException;
-use Socialite\Component\OAuth\Exception\OAuthNetworkException;
 
-try {
-    // create a provider instance
-    $callback = 'http://my.app.com/callback.php';
-    $consumer = new OAuthConsumer('client_id', 'client_secret');
-    $provider = new FacebookProvider($consumer, NULL, $callback);
-    // define the scope of the request
-    $provider->setScope(array('email'));
-    // redirect the user to the dialog URL
-    header('Location: ' . $provider->getAuthorizeUrl());
-} catch(OAuthException $e) {
-    // generic exception
-} catch(OAuthNetworkException $e) {
-    // network exception
-}
-```
+##### connect.php
 
-**callback.php**
-```php
-<?php
+    <?php
 
-use Socialite\Bridge\Provider\FacebookProvider;
-use Socialite\Component\OAuth\OAuthConsumer;
-use Socialite\Component\OAuth\Exception\OAuthException;
-use Socialite\Component\OAuth\Exception\OAuthNetworkException;
+    use Socialite\Bridge\Provider\FacebookProvider;
+    use Socialite\Component\OAuth\OAuthConsumer;
+    use Socialite\Component\OAuth\Exception\OAuthException;
+    use Socialite\Component\OAuth\Exception\OAuthNetworkException;
 
-try {
-    // create a provider instance
-    $callback = 'http://my.app.com/callback.php';
-    $consumer = new OAuthConsumer('client_id', 'client_secret');
-    $token    = new OAuthToken($_REQUEST['oauth_token']);
-    $provider = new FacebookProvider($consumer, $token, $callback);
-    // request an access token
-    $provider->getAccessToken(array('code' => $_REQUEST['code'], 'redirect_uri' => $callback, 'grant_type' => 'authorization_code'));
-    // get the response data; the rest is up to you...
-    $response = $provider->getResponse();
-} catch(OAuthException $e) {
-    // generic exception
-} catch(OAuthNetworkException $e) {
-    // network exception
-}
-```
+    try {
+        // create a provider instance
+        $callback = 'http://my.app.com/callback.php';
+        $consumer = new OAuthConsumer('client_id', 'client_secret');
+        $provider = new FacebookProvider($consumer, $callback);
+        // define the scope of the request
+        $provider->setScope(array('email'));
+        // redirect the user to the dialog URL
+        header('Location: ' . $provider->getAuthorizeUrl());
+    } catch(OAuthException $e) {
+        // generic exception
+    } catch(OAuthNetworkException $e) {
+        // network exception
+    }
 
-Requirements
-------------
+##### callback.php
 
-Any flavor of PHP 5.3 and above should do.
+    <?php
 
-Submitting bugs and feature requests
-------------------------------------
+    use Socialite\Bridge\Provider\FacebookProvider;
+    use Socialite\Component\OAuth\OAuthConsumer;
+    use Socialite\Component\OAuth\Exception\OAuthException;
+    use Socialite\Component\OAuth\Exception\OAuthNetworkException;
 
-Bugs and feature request are tracked on [GitHub](https://github.com/telemundo/socialite/issues)
+    try {
+        // create a provider instance
+        $callback = 'http://my.app.com/callback.php';
+        $consumer = new OAuthConsumer('client_id', 'client_secret');
+        $provider = new FacebookProvider($consumer, $callback);
+        // create a request token
+        $token = new OAuthToken($_REQUEST['oauth_token']);
+        $provider->setToken($token);
+        // request an access token
+        $provider->getAccessToken(array('code' => $_REQUEST['code'], 'redirect_uri' => $callback, 'grant_type' => 'authorization_code'));
+        // get the response data; the rest is up to you...
+        $response = $provider->getResponse();
+    } catch(OAuthException $e) {
+        // generic exception
+    } catch(OAuthNetworkException $e) {
+        // network exception
+    }
 
-Author
-------
+Authors
+-------
 
-Rodolfo Puig - [@rudisimo](https://twitter.com/rudisimo)  
+[Rodolfo Puig][1]  
+
 
 License
 -------
 
-This package is licensed under the MIT License - see the LICENSE file for details.
+This package is licensed under the MIT License - see the LICENSE.txt file for details.
+
 
 Acknowledgements
 ----------------
 
-This library is heavily inspired by the [Phirehose](https://github.com/fennb/phirehose),
-[twitteroauth](https://github.com/abraham/twitteroauth) and [oauth-php](http://code.google.com/p/oauth-php)
-libraries and many other libraries out there; although most concepts have been adjusted to fit to the PHP 5.3+ namespace
-paradigm.
+This library is heavily inspired by the [Phirehose][2], [twitteroauth][3] and [oauth-php][4]
+libraries and many other libraries out there.
+
+
+[1]: https://twitter.com/rudisimo "Follow @rudisimo on Twitter"
+[2]: https://github.com/fennb/phirehose "Phirehose"
+[3]: https://github.com/abraham/twitteroauth "twitteroauth"
+[4]: http://code.google.com/p/oauth-php "oauth-php"

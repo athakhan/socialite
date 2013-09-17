@@ -1,9 +1,24 @@
-vendor/
-composer.lock
-phpunit.xml
-
 # IDE
-.buildpath
-.project
-.settings/
-composer.phar
+/.buildpath
+/.project
+/.settings/
+/.idea/
+
+# Project
+/build/
+/bin/
+/vendor/
+/composer.phar
+/phpunit.phar
+
+# Folder view configuration files
+.DS_Store
+Desktop.ini
+
+# Thumbnail cache files
+._*
+Thumbs.db
+
+# Files that might appear on external disks
+.Spotlight-V100
+.Trashes
