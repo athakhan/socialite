@@ -23,7 +23,6 @@ use Socialite\Component\OAuth\SignatureMethod\OAuthSignatureMethod;
  * @author Rodolfo Puig <rpuig@7gstudios.com>
  */
 class OAuthRequest {
-    protected $generator;
     protected $encoder;
     protected $consumer;
     protected $token;
@@ -32,6 +31,8 @@ class OAuthRequest {
     protected $url;
     protected $parameters;
     protected $method;
+
+    protected $generator;
 
     protected $state  = 0;
 
@@ -57,7 +58,7 @@ class OAuthRequest {
         } else {
             $this->method = OAuthClient::HTTP_GET;
         }
-        $this->generator = new Factory();
+        $this->generator = (new Factory())->getLowStrengthGenerator();
     }
 
     /**
@@ -155,8 +156,8 @@ class OAuthRequest {
                 $parameters = array(
                     'oauth_consumer_key'     => $this->consumer->getKey(),
                     'oauth_signature_method' => $encoder->name(),
-                    'oauth_timestamp'        => self::generateTimestamp(),
-                    'oauth_nonce'            => self::generateNonce(),
+                    'oauth_timestamp'        => $this->generateTimestamp(),
+                    'oauth_nonce'            => $this->generateNonce(),
                     'oauth_version'          => $this->version
                 );
                 // include the token if present
@@ -294,7 +295,7 @@ class OAuthRequest {
      *
      * @return int
      */
-    static public function generateTimestamp() {
+    public function generateTimestamp() {
         return time();
     }
 
@@ -303,7 +304,7 @@ class OAuthRequest {
      *
      * @return string
      */
-    static public function generateNonce() {
+    public function generateNonce() {
         return $this->generator->generateString(64);
     }
 
@@ -313,7 +314,7 @@ class OAuthRequest {
      * @param  string $url
      * @return \Socialite\Component\OAuth\OAuthRequest
      */
-    static public function generateFromGlobals($url) {
+    public function generateFromGlobals($url) {
         $validkeys  = array('oauth_callback', 'oauth_consumer_key', 'oauth_nonce', 'oauth_signature_method', 'oauth_timestamp', 'oauth_version');
         $parameters = array();
         foreach($validkeys as $key) {
