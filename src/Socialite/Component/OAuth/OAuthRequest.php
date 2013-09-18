@@ -45,19 +45,19 @@ class OAuthRequest {
      * @param string $method
      * @param array  $parameters
      */
-    public function __construct($url, array $parameters = NULL, $method = NULL) {
+    public function __construct($url, array $parameters = null, $method = null) {
         $this->url = $url;
         if (is_array($parameters)) {
             $this->parameters = $parameters;
         } else {
             $this->parameters = array();
         }
-        if ($method !== NULL) {
+        if ($method !== null) {
             $this->method = strtoupper($method);
         } else {
             $this->method = OAuthClient::HTTP_GET;
         }
-	$this->generator = new Factory();
+        $this->generator = new Factory();
     }
 
     /**
@@ -192,7 +192,7 @@ class OAuthRequest {
             if ($this->getVersion() === 1) {
                 // create the oauth signature
                 $signature = $this->encoder->build($this, $this->consumer, $this->token);
-                if ($signature !== NULL) {
+                if ($signature !== null) {
                     $this->parameters['oauth_signature'] = $signature;
                 }
                 // mark the request as signed
@@ -304,7 +304,7 @@ class OAuthRequest {
      * @return string
      */
     static public function generateNonce() {
-	return $this->generator->generateString(64);
+        return $this->generator->generateString(64);
     }
 
     /**

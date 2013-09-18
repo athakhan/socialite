@@ -31,7 +31,7 @@ class FacebookProvider extends BaseProvider {
      * (non-PHPdoc)
      * @see \Socialite\Bridge\Provider\BaseProvider::getRequestToken()
      */
-    public function getRequestToken(array $params = NULL) {
+    public function getRequestToken(array $params = null) {
         return;
     }
 
@@ -39,7 +39,7 @@ class FacebookProvider extends BaseProvider {
      * (non-PHPdoc)
      * @see \Socialite\Bridge\Provider\BaseProvider::getAccessToken()
      */
-    public function getAccessToken(array $params = NULL) {
+    public function getAccessToken(array $params = null) {
         $url = $this->getNormalizedUrl($this->oauth_access_token_url);
         // create the request object
         $request = new OAuthRequest($url, $params, OAuthClient::HTTP_POST);
@@ -56,7 +56,7 @@ class FacebookProvider extends BaseProvider {
      * (non-PHPdoc)
      * @see \Socialite\Bridge\Provider\Base\BaseProvider::getAuthorizeUrl()
      */
-    public function getAuthorizeUrl(array $params = NULL) {
+    public function getAuthorizeUrl(array $params = null) {
         $url = $this->getNormalizedUrl($this->oauth_authorize_url);
 
         return $this->getParametizedUrl($url, $params);

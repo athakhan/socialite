@@ -41,7 +41,7 @@ abstract class OAuthSignatureMethod {
      * @param  OAuthToken    $token
      * @return string
      */
-    abstract public function build(OAuthRequest $request, OAuthConsumer $consumer, OAuthToken $token = NULL);
+    abstract public function build(OAuthRequest $request, OAuthConsumer $consumer, OAuthToken $token = null);
 
     /**
      * Check if the request signature corresponds to the one calculated for the request.
@@ -52,5 +52,5 @@ abstract class OAuthSignatureMethod {
      * @param  string        $signature
      * @return bool
      */
-    abstract public function verify(OAuthRequest $request, OAuthConsumer $consumer, OAuthToken $token = NULL, $signature);
+    abstract public function verify(OAuthRequest $request, OAuthConsumer $consumer, OAuthToken $token = null, $signature);
 }

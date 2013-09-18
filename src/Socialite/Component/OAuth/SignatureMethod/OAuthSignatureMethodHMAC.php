@@ -39,7 +39,7 @@ class OAuthSignatureMethodHMAC extends OAuthSignatureMethod {
      * (non-PHPdoc)
      * @see \Socialite\Component\OAuth\SignatureMethod\OAuthSignatureMethod::build()
      */
-    public function build(OAuthRequest $request, OAuthConsumer $consumer, OAuthToken $token = NULL) {
+    public function build(OAuthRequest $request, OAuthConsumer $consumer, OAuthToken $token = null) {
         $parts   = array(OAuth::urlencode($consumer->getSecret()));
         $parts[] = ($token instanceof OAuthToken) ? OAuth::urlencode($token->getSecret()) : '';
         $base    = $request->getBaseSignature();
@@ -74,7 +74,7 @@ class OAuthSignatureMethodHMAC extends OAuthSignatureMethod {
      * (non-PHPdoc)
      * @see \Socialite\Component\OAuth\SignatureMethod\OAuthSignatureMethod::verify()
      */
-    public function verify(OAuthRequest $request, OAuthConsumer $consumer, OAuthToken $token = NULL, $signature) {
+    public function verify(OAuthRequest $request, OAuthConsumer $consumer, OAuthToken $token = null, $signature) {
         $rawa = OAuth::urldecode($signature);
         $rawb = OAuth::urldecode($this->build($request, $consumer, $token));
 
