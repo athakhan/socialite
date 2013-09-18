@@ -4,7 +4,7 @@ Socialite
 Socialite is written with speed and flexibility in mind. It allows developers to build
 better and easy to maintain OAuth applications with PHP.
 
-[![Build Status](https://travis-ci.org/rudisimo/socialite.png?branch=hotfix/travis-fix)](https://travis-ci.org/rudisimo/socialite)
+[![Build Status](https://travis-ci.org/telemundo/socialite.png?branch=master)](https://travis-ci.org/telemundo/socialite)
 
 Installation
 ------------
