@@ -133,7 +133,7 @@ abstract class BaseProvider {
      * @return int
      */
     public function getVersion() {
-        return (int)$this->oauth_version;
+        return $this->oauth_version;
     }
 
     /**
@@ -186,9 +186,9 @@ abstract class BaseProvider {
     /**
      * Generates an access token.
      *
-     * @param array $params
+     * @param string $verifier
      */
-    abstract public function getAccessToken(array $params = null);
+    abstract public function getAccessToken($verifier);
 
     /**
      * Returns the authorization dialog URL.

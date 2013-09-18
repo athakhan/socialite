@@ -52,8 +52,10 @@ class LinkedinProvider extends BaseProvider {
      * (non-PHPdoc)
      * @see \Socialite\Bridge\Provider\BaseProvider::getAccessToken()
      */
-    public function getAccessToken(array $params = null) {
+    public function getAccessToken($verifier) {
         $url = $this->getNormalizedUrl($this->oauth_access_token_url);
+        // build the oauth request parameters
+        $params = array('oauth_verifier' => $verifier);
         // create the request object
         $request = new OAuthRequest($url, $params, OAuthClient::HTTP_POST);
         $request->setConsumer($this->consumer);
