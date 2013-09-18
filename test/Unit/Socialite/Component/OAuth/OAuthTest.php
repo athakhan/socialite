@@ -8,7 +8,7 @@
  * file that was distributed with this source code.
  */
 
-use \Socialite\Component\OAuth\Oauth;
+use \Socialite\Component\OAuth\OAuth;
 
 class OAuthTest extends \PHPUnit_Framework_TestCase {
     protected $raw;
