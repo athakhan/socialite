@@ -1,21 +1,27 @@
 {
     "name": "telemundo/socialite",
     "description": "OAuth library for PHP 5.3+",
-    "keywords": ["oauth", "social", "psr-0"],
+    "keywords": ["oauth", "oauth2", "social"],
     "homepage": "http://github.com/telemundo/socialite",
     "type": "library",
     "license": "MIT",
     "authors": [
         {
             "name": "Rodolfo Puig",
-            "email": "rodolfo.puig@nbcuni.com"
+            "email": "rodolfo@puig.io"
         }
     ],
     "require": {
-        "php": ">=5.3.3"
+        "php": ">=5.3.4",
+        "ircmaxell/random-lib": "dev-master"
+    },
+    "require-dev": {
+        "silex/silex": "1.*",
+        "twig/twig": "1.12.*",
+        "symfony/twig-bridge": "2.1.*"
     },
     "autoload": {
-        "psr-0": { "Socialite": "src/" }
+        "psr-0": { "": "src/" }
     },
     "minimum-stability": "dev"
 }

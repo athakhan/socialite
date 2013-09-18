@@ -1,16 +1,16 @@
 <?php
-
 /**
  * This file is part of the Socialite package.
  *
- * (c) Telemundo Digital Media
+ * Copyright (c) Telemundo Digital Media
  *
- * For the full copyright and license information, please view the LICENSE
+ * For the full copyright and license information, please view the LICENSE.txt
  * file that was distributed with this source code.
  */
 
 namespace Socialite\Component\OAuth;
 
+use RandomLib\Factory;
 use Socialite\Component\OAuth\OAuthClient;
 use Socialite\Component\OAuth\OAuthConsumer;
 use Socialite\Component\OAuth\OAuthToken;
@@ -19,7 +19,7 @@ use Socialite\Component\OAuth\SignatureMethod\OAuthSignatureMethod;
 /**
  * OAuth request.
  *
- * @author Rodolfo Puig <rpuig@7gstudios.com>
+ * @author Rodolfo Puig <rodolfo@puig.io>
  */
 class OAuthRequest {
     protected $encoder;
@@ -31,6 +31,8 @@ class OAuthRequest {
     protected $parameters;
     protected $method;
 
+    protected $generator;
+
     protected $state  = 0;
 
     const STATE_BUILT  = 1;
@@ -40,21 +42,22 @@ class OAuthRequest {
      * Constructor.
      *
      * @param string $url
-     * @param string $method
      * @param array  $parameters
+     * @param string $method
      */
-    public function __construct($url, array $parameters = NULL, $method = NULL) {
+    public function __construct($url, array $parameters = null, $method = null) {
         $this->url = $url;
         if (is_array($parameters)) {
             $this->parameters = $parameters;
         } else {
             $this->parameters = array();
         }
-        if ($method !== NULL) {
+        if ($method !== null) {
             $this->method = strtoupper($method);
         } else {
             $this->method = OAuthClient::HTTP_GET;
         }
+        $this->generator = (new Factory())->getLowStrengthGenerator();
     }
 
     /**
@@ -152,8 +155,8 @@ class OAuthRequest {
                 $parameters = array(
                     'oauth_consumer_key'     => $this->consumer->getKey(),
                     'oauth_signature_method' => $encoder->name(),
-                    'oauth_timestamp'        => self::generateTimestamp(),
-                    'oauth_nonce'            => self::generateNonce(),
+                    'oauth_timestamp'        => $this->generateTimestamp(),
+                    'oauth_nonce'            => $this->generateNonce(),
                     'oauth_version'          => $this->version
                 );
                 // include the token if present
@@ -189,7 +192,7 @@ class OAuthRequest {
             if ($this->getVersion() === 1) {
                 // create the oauth signature
                 $signature = $this->encoder->build($this, $this->consumer, $this->token);
-                if ($signature !== NULL) {
+                if ($signature !== null) {
                     $this->parameters['oauth_signature'] = $signature;
                 }
                 // mark the request as signed
@@ -291,7 +294,7 @@ class OAuthRequest {
      *
      * @return int
      */
-    static public function generateTimestamp() {
+    public function generateTimestamp() {
         return time();
     }
 
@@ -300,11 +303,8 @@ class OAuthRequest {
      *
      * @return string
      */
-    static public function generateNonce() {
-        $time = microtime(TRUE);
-        $rand = uniqid('socialite_', true);
-
-        return hash('md5', $time . $rand);
+    public function generateNonce() {
+        return $this->generator->generateString(64);
     }
 
     /**
@@ -313,7 +313,7 @@ class OAuthRequest {
      * @param  string $url
      * @return \Socialite\Component\OAuth\OAuthRequest
      */
-    static public function generateFromGlobals($url) {
+    public function generateFromGlobals($url) {
         $validkeys  = array('oauth_callback', 'oauth_consumer_key', 'oauth_nonce', 'oauth_signature_method', 'oauth_timestamp', 'oauth_version');
         $parameters = array();
         foreach($validkeys as $key) {

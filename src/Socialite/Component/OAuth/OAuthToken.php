@@ -1,11 +1,10 @@
 <?php
-
 /**
  * This file is part of the Socialite package.
  *
- * (c) Telemundo Digital Media
+ * Copyright (c) Telemundo Digital Media
  *
- * For the full copyright and license information, please view the LICENSE
+ * For the full copyright and license information, please view the LICENSE.txt
  * file that was distributed with this source code.
  */
 
@@ -14,7 +13,7 @@ namespace Socialite\Component\OAuth;
 /**
  * OAuth token.
  *
- * @author Rodolfo Puig <rpuig@7gstudios.com>
+ * @author Rodolfo Puig <rodolfo@puig.io>
  */
 class OAuthToken {
     /**
@@ -37,7 +36,7 @@ class OAuthToken {
      * @param string $token
      * @param string $secret
      */
-    public function __construct($token, $secret = NULL) {
+    public function __construct($token, $secret = null) {
         $this->token  = $token;
         $this->secret = $secret;
     }

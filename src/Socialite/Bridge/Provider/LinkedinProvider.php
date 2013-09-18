@@ -1,11 +1,10 @@
 <?php
-
 /**
  * This file is part of the Socialite package.
  *
- * (c) Telemundo Digital Media
+ * Copyright (c) Telemundo Digital Media
  *
- * For the full copyright and license information, please view the LICENSE
+ * For the full copyright and license information, please view the LICENSE.txt
  * file that was distributed with this source code.
  */
 
@@ -19,7 +18,7 @@ use Socialite\Component\OAuth\OAuthRequest;
 /**
  * Linkedin provider.
  *
- * @author Rodolfo Puig <rpuig@7gstudios.com>
+ * @author Rodolfo Puig <rodolfo@puig.io>
  */
 class LinkedinProvider extends BaseProvider {
     protected $oauth_request_token_url = 'https://api.linkedin.com/uas/oauth/requestToken';
@@ -31,7 +30,7 @@ class LinkedinProvider extends BaseProvider {
      * (non-PHPdoc)
      * @see \Socialite\Bridge\Provider\BaseProvider::getRequestToken()
      */
-    public function getRequestToken(array $params = NULL) {
+    public function getRequestToken(array $params = null) {
         $url = $this->getNormalizedUrl($this->oauth_request_token_url);
         // add the callback to the request parameters
         $defaults = array();
@@ -52,8 +51,10 @@ class LinkedinProvider extends BaseProvider {
      * (non-PHPdoc)
      * @see \Socialite\Bridge\Provider\BaseProvider::getAccessToken()
      */
-    public function getAccessToken(array $params = NULL) {
+    public function getAccessToken($verifier) {
         $url = $this->getNormalizedUrl($this->oauth_access_token_url);
+        // build the oauth request parameters
+        $params = array('oauth_verifier' => $verifier);
         // create the request object
         $request = new OAuthRequest($url, $params, OAuthClient::HTTP_POST);
         $request->setConsumer($this->consumer);
@@ -70,7 +71,7 @@ class LinkedinProvider extends BaseProvider {
      * (non-PHPdoc)
      * @see \Socialite\Bridge\Provider\BaseProvider::getAuthorizeUrl()
      */
-    public function getAuthorizeUrl(array $params = NULL) {
+    public function getAuthorizeUrl(array $params = null) {
         $url = $this->getNormalizedUrl($this->oauth_authorize_url);
 
         return $this->getParametizedUrl($url, $this->response);

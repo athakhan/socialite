@@ -1,11 +1,10 @@
 <?php
-
 /**
  * This file is part of the Socialite package.
  *
- * (c) Telemundo Digital Media
+ * Copyright (c) Telemundo Digital Media
  *
- * For the full copyright and license information, please view the LICENSE
+ * For the full copyright and license information, please view the LICENSE.txt
  * file that was distributed with this source code.
  */
 
@@ -21,7 +20,7 @@ use Socialite\Component\OAuth\SignatureMethod\OAuthSignatureMethodHMAC;
 /**
  * OAuth client.
  *
- * @author Rodolfo Puig <rpuig@7gstudios.com>
+ * @author Rodolfo Puig <rodolfo@puig.io>
  */
 class OAuthClient {
     protected $encoder;
@@ -55,16 +54,16 @@ class OAuthClient {
      *
      * @param  string $data
      */
-    public function execute(array $curl_opts = NULL) {
+    public function execute(array $curl_opts = null) {
         $curl = curl_init($this->request->getNormalizedUrl());
         curl_setopt($curl, CURLOPT_USERAGENT, self::USERAGENT);
         curl_setopt($curl, CURLOPT_CONNECTTIMEOUT, 15);
         curl_setopt($curl, CURLOPT_TIMEOUT, 30);
-        curl_setopt($curl, CURLOPT_RETURNTRANSFER, TRUE);
-        curl_setopt($curl, CURLOPT_FOLLOWLOCATION, TRUE);
-        curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, TRUE);
-        curl_setopt($curl, CURLOPT_HEADER, FALSE);
-        curl_setopt($curl, CURLINFO_HEADER_OUT, TRUE);
+        curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($curl, CURLOPT_FOLLOWLOCATION, true);
+        curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, true);
+        curl_setopt($curl, CURLOPT_HEADER, false);
+        curl_setopt($curl, CURLINFO_HEADER_OUT, true);
         // prepare request data
         switch ($this->request->getMethod()) {
             case 'POST':
@@ -82,7 +81,7 @@ class OAuthClient {
         }
         // execute the request
         $response = curl_exec($curl);
-        if ($response === FALSE) {
+        if ($response === false) {
             throw new OAuthNetworkException('OAuth Request: ' . curl_error($curl));
         }
         // check for errors

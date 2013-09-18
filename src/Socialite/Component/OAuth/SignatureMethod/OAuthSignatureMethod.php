@@ -1,11 +1,10 @@
 <?php
-
 /**
  * This file is part of the Socialite package.
  *
- * (c) Telemundo Digital Media
+ * Copyright (c) Telemundo Digital Media
  *
- * For the full copyright and license information, please view the LICENSE
+ * For the full copyright and license information, please view the LICENSE.txt
  * file that was distributed with this source code.
  */
 
@@ -20,7 +19,7 @@ use Socialite\Component\OAuth\OAuthToken;
  *
  * @link http://oauth.net/core/1.0/#signing_process
  *
- * @author Rodolfo Puig <rpuig@7gstudios.com>
+ * @author Rodolfo Puig <rodolfo@puig.io>
  */
 abstract class OAuthSignatureMethod {
     /**
@@ -41,7 +40,7 @@ abstract class OAuthSignatureMethod {
      * @param  OAuthToken    $token
      * @return string
      */
-    abstract public function build(OAuthRequest $request, OAuthConsumer $consumer, OAuthToken $token = NULL);
+    abstract public function build(OAuthRequest $request, OAuthConsumer $consumer, OAuthToken $token = null);
 
     /**
      * Check if the request signature corresponds to the one calculated for the request.
@@ -52,5 +51,5 @@ abstract class OAuthSignatureMethod {
      * @param  string        $signature
      * @return bool
      */
-    abstract public function verify(OAuthRequest $request, OAuthConsumer $consumer, OAuthToken $token = NULL, $signature);
+    abstract public function verify(OAuthRequest $request, OAuthConsumer $consumer, OAuthToken $token = null, $signature);
 }

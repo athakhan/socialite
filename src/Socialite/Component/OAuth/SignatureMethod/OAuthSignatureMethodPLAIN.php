@@ -1,11 +1,10 @@
 <?php
-
 /**
  * This file is part of the Socialite package.
  *
- * (c) Telemundo Digital Media
+ * Copyright (c) Telemundo Digital Media
  *
- * For the full copyright and license information, please view the LICENSE
+ * For the full copyright and license information, please view the LICENSE.txt
  * file that was distributed with this source code.
  */
 
@@ -35,7 +34,7 @@ class OAuthSignatureMethodPLAIN extends OAuthSignatureMethod {
      * (non-PHPdoc)
      * @see \Socialite\Component\OAuth\SignatureMethod\OAuthSignatureMethod::build()
      */
-    public function build(OAuthRequest $request, OAuthConsumer $consumer, OAuthToken $token = NULL) {
+    public function build(OAuthRequest $request, OAuthConsumer $consumer, OAuthToken $token = null) {
         $parts   = array(OAuth::urlencode($consumer->getSecret()));
         $parts[] = ($token instanceof OAuthToken) ? OAuth::urlencode($token->getSecret()) : '';
 
@@ -46,7 +45,7 @@ class OAuthSignatureMethodPLAIN extends OAuthSignatureMethod {
      * (non-PHPdoc)
      * @see \Socialite\Component\OAuth\SignatureMethod\OAuthSignatureMethod::verify()
      */
-    public function verify(OAuthRequest $request, OAuthConsumer $consumer, OAuthToken $token = NULL, $signature) {
+    public function verify(OAuthRequest $request, OAuthConsumer $consumer, OAuthToken $token = null, $signature) {
         $rawa = OAuth::urldecode($signature);
         $rawb = OAuth::urldecode($this->build($request, $consumer, $token));
 

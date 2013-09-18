@@ -1,11 +1,10 @@
 <?php
-
 /**
  * This file is part of the Socialite package.
  *
- * (c) Telemundo Digital Media
+ * Copyright (c) Telemundo Digital Media
  *
- * For the full copyright and license information, please view the LICENSE
+ * For the full copyright and license information, please view the LICENSE.txt
  * file that was distributed with this source code.
  */
 
@@ -18,7 +17,7 @@ use Socialite\Component\OAuth\OAuthToken;
 /**
  * Base provider.
  *
- * @author Rodolfo Puig <rpuig@7gstudios.com>
+ * @author Rodolfo Puig <rodolfo@puig.io>
  */
 abstract class BaseProvider {
     protected $consumer;
@@ -38,14 +37,21 @@ abstract class BaseProvider {
      * Constructor.
      *
      * @param \Socialite\Component\OAuth\OAuthConsumer $consumer
-     * @param \Socialite\Component\OAuth\OAuthToken    $token
      * @param string                                   $callback
      */
-    public function __construct(OAuthConsumer $consumer, OAuthToken $token = NULL, $callback = 'oob') {
+    public function __construct(OAuthConsumer $consumer, $callback = 'oob') {
         $this->consumer = $consumer;
-        $this->token    = $token;
         $this->callback = $callback;
         $this->scope    = array();
+    }
+
+    /**
+     * Sets the request consumer.
+     *
+     * #param \Socialite\Component\OAuth\OAuthConsumer $consumer
+     */
+    public function setConsumer(OAuthConsumer $consumer) {
+        $this->consumer = $consumer;
     }
 
     /**
@@ -58,12 +64,30 @@ abstract class BaseProvider {
     }
 
     /**
+     * Sets the request token.
+     *
+     * #param \Socialite\Component\OAuth\OAuthToken $token
+     */
+    public function setToken(OAuthToken $token) {
+        $this->token = $token;
+    }
+
+    /**
      * Returns the request token.
      *
      * @return \Socialite\Component\OAuth\OAuthToken
      */
     public function getToken() {
         return $this->token;
+    }
+
+    /**
+     * Sets the callback URL.
+     *
+     * #param string $callback
+     */
+    public function setCallback($callback) {
+        $this->callback = $callback;
     }
 
     /**
@@ -108,7 +132,7 @@ abstract class BaseProvider {
      * @return int
      */
     public function getVersion() {
-        return (int)$this->oauth_version;
+        return $this->oauth_version;
     }
 
     /**
@@ -122,7 +146,7 @@ abstract class BaseProvider {
             '{REDIRECT_URI}' => $this->callback,
             '{CLIENT_ID}'    => $this->consumer->getKey(),
             '{SCOPE}'        => implode($this->oauth_scope_separator, $this->getScope()),
-            '{STATE}'        => md5(microtime(TRUE))
+            '{STATE}'        => md5(microtime(true))
         );
         foreach ($parameters as $name => $value) {
             $url = str_replace($name, OAuth::urlencode($value), $url);
@@ -138,9 +162,9 @@ abstract class BaseProvider {
      * @param  mixed  $params
      * @return string
      */
-    public function getParametizedUrl($url, $params = NULL) {
-        if ($params !== NULL) {
-            $sep = (strstr($url, '?') === FALSE) ? '?' : '&';
+    public function getParametizedUrl($url, $params = null) {
+        if ($params !== null) {
+            $sep = (strstr($url, '?') === false) ? '?' : '&';
             if (is_array($params)) {
                 $url .= $sep . http_build_query($params);
             } elseif (is_scalar($params)) {
@@ -156,14 +180,14 @@ abstract class BaseProvider {
      *
      * @param array $params
      */
-    abstract public function getRequestToken(array $params = NULL);
+    abstract public function getRequestToken(array $params = null);
 
     /**
      * Generates an access token.
      *
-     * @param array $params
+     * @param string $verifier
      */
-    abstract public function getAccessToken(array $params = NULL);
+    abstract public function getAccessToken($verifier);
 
     /**
      * Returns the authorization dialog URL.
@@ -171,5 +195,5 @@ abstract class BaseProvider {
      * @param  array $params
      * @return string
      */
-    abstract public function getAuthorizeUrl(array $params = NULL);
+    abstract public function getAuthorizeUrl(array $params = null);
 }
