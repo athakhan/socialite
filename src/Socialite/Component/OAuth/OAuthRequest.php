@@ -11,6 +11,7 @@
 
 namespace Socialite\Component\OAuth;
 
+use RandomLib\Factory;
 use Socialite\Component\OAuth\OAuthClient;
 use Socialite\Component\OAuth\OAuthConsumer;
 use Socialite\Component\OAuth\OAuthToken;
@@ -22,6 +23,7 @@ use Socialite\Component\OAuth\SignatureMethod\OAuthSignatureMethod;
  * @author Rodolfo Puig <rpuig@7gstudios.com>
  */
 class OAuthRequest {
+    protected $generator;
     protected $encoder;
     protected $consumer;
     protected $token;
@@ -55,6 +57,7 @@ class OAuthRequest {
         } else {
             $this->method = OAuthClient::HTTP_GET;
         }
+	$this->generator = new Factory();
     }
 
     /**
@@ -301,10 +304,7 @@ class OAuthRequest {
      * @return string
      */
     static public function generateNonce() {
-        $time = microtime(TRUE);
-        $rand = uniqid('socialite_', true);
-
-        return hash('md5', $time . $rand);
+	return $this->generator->generateString(64);
     }
 
     /**
