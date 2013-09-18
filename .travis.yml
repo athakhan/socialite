@@ -4,8 +4,15 @@ php:
   - 5.3.3
   - 5.3
   - 5.4
+  - 5.5
 
-before_script: composer install -n
+matrix:
+  allow_failures:
+    - php: 5.3.3
+    - php: 5.5
 
-script: phpunit
+before_script:
+  - COMPOSER_ROOT_VERSION=dev-master composer --prefer-source --dev -n install
 
+script:
+  - phpunit
