@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!-- Meta, title, CSS, favicons, etc. -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>Examples &middot; Socialite</title>
+    <!-- Bootstrap core CSS -->
+    <link href="assets/css/bootstrap.min.css" rel="stylesheet">
+    <link href="assets/css/application.css" rel="stylesheet">
+  </head>
+  <body>
+    <div class="bs-header" id="content">
+      <div class="container">
+        <h1>Socialite</h1>
+        <p>Socialite is written with speed and flexibility in mind. It allows developers to build better and easy to maintain OAuth applications with PHP.</p>
+      </div>
+    </div>
+    <div class="container bs-docs-container">
+      <div class="row">
+        <div class="col-md-3">
+          <div class="bs-sidebar hidden-print" role="complementary">
+            <ul class="nav bs-sidenav">
+              <li>
+                <a href="#providers">Providers</a>
+                <ul class="nav">
+{% for id, provider in providers %}
+                  <li>
+                    <a href="#provider-{{ id }}">{{ provider.0 }}</a>
+                  </li>
+{% endfor %}
+                </ul>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div class="col-md-9" role="main">
+          <div class="bs-docs-section">
+            <div class="page-header">
+              <h1 id="providers">Providers</h1>
+            </div>
+            <p class="lead"></p>
+{% for id, provider in providers %}
+            <h3 id="provider-{{ id }}">{{ provider.0 }}</h2>
+            <form class="bs-example" role="form" action="{{ path('oauth', {'action':'connect', 'provider':id}) }}" method="post">
+              <div class="form-group">
+                <label for="clientid{{ id }}">{{ provider.1 }}</label>
+                <input type="text" name="client_id" class="form-control" id="clientid{{ id }}" placeholder="{{ provider.1 }}">
+              </div>
+              <div class="form-group">
+                <label for="clientsecret{{ id }}">{{ provider.2 }}</label>
+                <input type="text" name="client_secret" class="form-control" id="clientsecret{{ id }}" placeholder="{{ provider.2 }}">
+              </div>
+              <button type="submit" class="btn btn-default">Submit</button>
+            </form>
+{% endfor %}
+          </div>
+        </div>
+      </div>
+    </div>
+    <footer class="bs-footer" role="contentinfo">
+      <div class="container">
+        <div class="bs-social">
+        <p>Theme borrowed from <a href="http://getbootstrap.com">Boostrap</a> and and library built by <a href="http://twitter.com/rudisimo" target="_blank">@rudisimo</a>.</p>
+      </div>
+    </footer>
+    <script src="assets/js/jquery.min.js"></script>
+    <script src="assets/js/bootstrap.min.js"></script>
+    <script src="assets/js/application.js"></script>
+  </body>
+</html>
+
