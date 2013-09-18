@@ -1,11 +1,10 @@
 <?php
-
 /**
  * This file is part of the Socialite package.
  *
- * (c) Telemundo Digital Media
+ * Copyright (c) Telemundo Digital Media
  *
- * For the full copyright and license information, please view the LICENSE
+ * For the full copyright and license information, please view the LICENSE.txt
  * file that was distributed with this source code.
  */
 
@@ -20,7 +19,7 @@ use Socialite\Component\OAuth\OAuthToken;
  *
  * @link http://oauth.net/core/1.0/#signing_process
  *
- * @author Rodolfo Puig <rpuig@7gstudios.com>
+ * @author Rodolfo Puig <rodolfo@puig.io>
  */
 abstract class OAuthSignatureMethod {
     /**
