@@ -3,7 +3,7 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "a2d0ffa099d45a7985f3dd356838e2fc",
+    "hash": "7b18b0580d3882f8831766c9e8828290",
     "packages": [
         {
             "name": "ircmaxell/random-lib",
@@ -389,12 +389,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/HttpFoundation.git",
-                "reference": "d0220419ef30dffd06de823150256008e132ef26"
+                "reference": "85826bb8aedb71d67c7d16d37b819c1bc887b0e5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/HttpFoundation/zipball/d0220419ef30dffd06de823150256008e132ef26",
-                "reference": "d0220419ef30dffd06de823150256008e132ef26",
+                "url": "https://api.github.com/repos/symfony/HttpFoundation/zipball/85826bb8aedb71d67c7d16d37b819c1bc887b0e5",
+                "reference": "85826bb8aedb71d67c7d16d37b819c1bc887b0e5",
                 "shasum": ""
             },
             "require": {
@@ -430,7 +430,7 @@
             ],
             "description": "Symfony HttpFoundation Component",
             "homepage": "http://symfony.com",
-            "time": "2013-09-13 12:20:47"
+            "time": "2013-09-18 07:05:46"
         },
         {
             "name": "symfony/http-kernel",
@@ -439,12 +439,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/HttpKernel.git",
-                "reference": "76852a611322e2f65904c25f089a47f2f2857cfd"
+                "reference": "9859213556adca2333a62128fcabea40f802c3c5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/HttpKernel/zipball/76852a611322e2f65904c25f089a47f2f2857cfd",
-                "reference": "76852a611322e2f65904c25f089a47f2f2857cfd",
+                "url": "https://api.github.com/repos/symfony/HttpKernel/zipball/9859213556adca2333a62128fcabea40f802c3c5",
+                "reference": "9859213556adca2333a62128fcabea40f802c3c5",
                 "shasum": ""
             },
             "require": {
@@ -501,7 +501,7 @@
             ],
             "description": "Symfony HttpKernel Component",
             "homepage": "http://symfony.com",
-            "time": "2013-09-13 12:20:47"
+            "time": "2013-09-18 07:05:46"
         },
         {
             "name": "symfony/routing",
@@ -678,7 +678,7 @@
         "ircmaxell/random-lib": 20
     },
     "platform": {
-        "php": ">=5.3.4"
+        "php": ">=5.3.3"
     },
     "platform-dev": [
 
