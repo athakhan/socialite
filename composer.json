@@ -15,8 +15,13 @@
         "php": ">=5.3.4",
         "ircmaxell/random-lib": "dev-master"
     },
+    "require-dev": {
+        "silex/silex": "1.*",
+        "twig/twig": "1.12.*",
+        "symfony/twig-bridge": "2.1.*"
+    },
     "autoload": {
-        "psr-0": { "Socialite": "src/" }
+        "psr-0": { "": "src/" }
     },
     "minimum-stability": "dev"
 }
