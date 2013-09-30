@@ -5,6 +5,8 @@ Socialite is written with speed and flexibility in mind. It allows developers to
 better and easy to maintain OAuth applications with PHP.
 
 [![Build Status](https://travis-ci.org/telemundo/socialite.png?branch=master)](https://travis-ci.org/telemundo/socialite)
+[![Coverage Status](https://coveralls.io/repos/telemundo/socialite/badge.png)](https://coveralls.io/r/telemundo/socialite)
+[![Latest Stable Version](https://poser.pugx.org/telemundo/socialite/v/stable.png)](https://packagist.org/packages/telemundo/socialite)
 
 Installation
 ------------
